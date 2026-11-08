@@ -9,9 +9,9 @@ SUBSTANCE_TERMS: dict[str, str] = {
 
 PAST_CUES: str = r"\b(quit|quitting|former(ly)?|ex-?\w*|remote|stopped|sober|sobriety|in recovery|previously|prior|used to|abstinent|clean for|years? ago)\b"
 NEVER_CUES: str = r"\b(denies|denied|deny|never|no|not|none|negative|non-?smoker|nondrinker|doesn'?t|does not)\b"
-SPLIT: str = r"[.;]+"  # sentence punctuation only; MIMIC notes are hard-wrapped
+SPLIT: str = r"[.;]+"  # sentence punctuation only
 STOP_HEADERS: str = r"\b(family history|fam hx|fhx|physical exam)\b"  # social history ends here
-MAX_CUE_DIST: int = 60  # characters; a cue farther than this from the term is ignored
+MAX_CUE_DIST: int = 60  
 
 PRIORITY: list[int] = [1, 2, 3, 4]  # present > past > never > unsure
 
@@ -36,7 +36,7 @@ def classify_sentence(sentence: str, term_pattern: str) -> int:
     past_d: int = nearest_distance(PAST_CUES, s, term_spans)
     never_d: int = nearest_distance(NEVER_CUES, s, term_spans)
 
-    # the cue closest to the substance term wins, so cues about other substances in the same sentence are ignored
+    # the cue closest to the substance term wins
     if min(past_d, never_d) <= MAX_CUE_DIST:
         return 2 if past_d <= never_d else 3
     if "?" in s:
@@ -65,3 +65,62 @@ def predict_substances(texts: pd.Series) -> pd.DataFrame:
         label: texts.apply(classify_substance, term_pattern=pattern)
         for label, pattern in SUBSTANCE_TERMS.items()
     })
+
+FAMILY: str = r"(wife|husband|spouse|partner|family|daughters?|sons?|children|kids|mother|father|parents?|sisters?|brothers?|siblings?|girlfriend|boyfriend|fiance\w*|grand\w+|niece|nephew|friends?|roommates?|significant other)"
+
+COMMUNITY_PRESENT: str = (
+    rf"\b(lives\b[^.]{{0,60}}\bwith\b(?! (no|none)\b)"   # lives [in X / at home] with ...
+    rf"|w/ (his |her )?{FAMILY}"
+    rf"|has (a |an |\w+ )?(adult |grown |\w+ )?{FAMILY}"   # has two adult sons, has a girlfriend
+    rf"|(his|her|their) {FAMILY}"
+    rf"|(re)?married|step-?(children|kids|sons?|daughters?)|grandchildren"
+    rf"|{FAMILY}[^.]{{0,40}}(supportive|involved|in the area|nearby|visits?)"
+    rf"|support(ive)? system|caregiver)\b"
+)
+COMMUNITY_ABSENT: str = r"\b(widow(ed|er)?|divorced?|separated|lives alone|estranged|no (close )?(family|friends|support)|(wife|husband|spouse|partner) (died|passed|deceased)|(died|passed away|deceased))\b"
+EDUCATION: str = r"\b(college|high school|hs grad\w*|graduated?|degree|university|ged|ph\.?d|masters?|bachelors?|education|school|\d+(th|st|nd|rd) grade|studie[sd]|student)\b"
+
+UNEMPLOYED: str = r"\b(unemployed|retired?|retirement|disabilit\w*|disabled|ssi|ssdi|not (currently )?working|out of work|laid off|lost (his|her) job|does not work|doesn'?t work|formerly worked|previously worked|used to work)\b"
+EMPLOYED: str = r"\b(works?|working|employed|employment|job|occupation|profession|career)\b"
+
+HOMELESS: str = r"\b(homeless\w*|undomiciled|shelter|on the streets?|no fixed (address|residence)|couch[\s-]?surf\w*)\b"
+HOUSED: str = r"\b(lives (with|alone|in|at|on)|living (with|alone|in|at)|resides|home|house|apartment|apt|condo|nursing home|assisted living|group home|nh resident|rehab facility)\b"
+
+
+def prep_text(text: str) -> str:
+    if not isinstance(text, str):
+        return ""
+    flat: str = re.sub(r"\s+", " ", text)
+    return re.split(STOP_HEADERS, flat, maxsplit=1, flags=re.IGNORECASE)[0].lower()
+
+
+def classify_sdoh(text: str) -> dict[str, int]:
+    t: str = prep_text(text)
+    # README coding: economics 1=employed, 2=unemployed/retired, 0=none; environment 1=housed, 2=homeless, 0=none
+    if re.search(UNEMPLOYED, t):
+        economics = 2
+    elif re.search(EMPLOYED, t):
+        economics = 1
+    else:
+        economics = 0
+    if re.search(HOMELESS, t):
+        environment = 2
+    elif re.search(HOUSED, t):
+        environment = 1
+    else:
+        environment = 0
+    return {
+        "sdoh_community_present": int(bool(re.search(COMMUNITY_PRESENT, t))),
+        "sdoh_community_absent": int(bool(re.search(COMMUNITY_ABSENT, t))),
+        "sdoh_education": int(bool(re.search(EDUCATION, t))),
+        "sdoh_economics": economics,
+        "sdoh_environment": environment,
+    }
+
+
+def predict_sdoh(texts: pd.Series) -> pd.DataFrame:
+    return pd.DataFrame(list(texts.apply(classify_sdoh)))
+
+
+def predict_all(texts: pd.Series) -> pd.DataFrame:
+       return pd.concat([predict_sdoh(texts).reset_index(drop=True), predict_substances(texts).reset_index(drop=True)], axis=1)
