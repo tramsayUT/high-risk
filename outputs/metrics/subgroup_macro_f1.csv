@@ -1,0 +1,37 @@
+attribute,group,n,model,macro_f1,ci_low,ci_high
+eth_group,Asian,29,regex,0.6818,0.6357,0.8381
+eth_group,Asian,29,bert,0.8259,0.7542,0.9214
+eth_group,Asian,29,llm_fs,0.7716,0.6921,0.8507
+eth_group,Black,94,regex,0.7513,0.6873,0.7954
+eth_group,Black,94,bert,0.8704,0.8206,0.906
+eth_group,Black,94,llm_fs,0.7717,0.7172,0.799
+eth_group,Hispanic,39,regex,0.7094,0.6589,0.746
+eth_group,Hispanic,39,bert,0.8381,0.786,0.8773
+eth_group,Hispanic,39,llm_fs,0.7798,0.7179,0.8483
+eth_group,Other/Unknown,122,regex,0.7152,0.6761,0.7651
+eth_group,Other/Unknown,122,bert,0.81,0.7617,0.862
+eth_group,Other/Unknown,122,llm_fs,0.7001,0.6525,0.732
+eth_group,White,745,regex,0.741,0.7162,0.7563
+eth_group,White,745,bert,0.8666,0.8395,0.8854
+eth_group,White,745,llm_fs,0.7486,0.7245,0.7709
+INSURANCE,Government,31,regex,0.7213,0.6521,0.792
+INSURANCE,Government,31,bert,0.8576,0.7745,0.9172
+INSURANCE,Government,31,llm_fs,0.7591,0.6772,0.8396
+INSURANCE,Medicaid,102,regex,0.7661,0.7253,0.7932
+INSURANCE,Medicaid,102,bert,0.8293,0.7879,0.857
+INSURANCE,Medicaid,102,llm_fs,0.7409,0.7022,0.7732
+INSURANCE,Medicare,547,regex,0.6973,0.6661,0.72
+INSURANCE,Medicare,547,bert,0.8437,0.8073,0.8723
+INSURANCE,Medicare,547,llm_fs,0.7217,0.6932,0.7415
+INSURANCE,Private,338,regex,0.7487,0.7232,0.7684
+INSURANCE,Private,338,bert,0.8809,0.8529,0.9016
+INSURANCE,Private,338,llm_fs,0.7332,0.6994,0.7805
+INSURANCE,Self Pay,11,regex,0.8267,0.7598,0.8943
+INSURANCE,Self Pay,11,bert,0.9301,0.8611,0.9885
+INSURANCE,Self Pay,11,llm_fs,0.8525,0.7472,0.9668
+GENDER,F,458,regex,0.7536,0.7287,0.7721
+GENDER,F,458,bert,0.8724,0.8501,0.8888
+GENDER,F,458,llm_fs,0.734,0.709,0.7554
+GENDER,M,571,regex,0.7277,0.7022,0.7457
+GENDER,M,571,bert,0.8598,0.8389,0.878
+GENDER,M,571,llm_fs,0.7474,0.7202,0.7712
