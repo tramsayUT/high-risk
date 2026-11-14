@@ -1,0 +1,10 @@
+,regex,bert,llm_zs_v1,llm_zs_v2,llm_fs
+sdoh_community_present,0.871,0.956,0.8601,0.8927,0.8651
+sdoh_community_absent,0.795,0.919,0.783,0.7872,0.7988
+sdoh_education,0.83,0.89,0.5914,0.7857,0.789
+sdoh_economics,0.834,0.904,0.6516,0.6497,0.7373
+sdoh_environment,0.765,0.802,0.3506,0.515,0.6563
+behavior_alcohol,0.541,0.787,0.4334,0.536,0.632
+behavior_tobacco,0.607,0.86,0.5334,0.5828,0.7028
+behavior_drug,0.522,0.726,0.4592,0.378,0.5528
+MEAN,0.7206,0.8555,0.5828,0.6409,0.7168
