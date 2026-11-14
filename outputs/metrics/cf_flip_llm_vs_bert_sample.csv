@@ -1,0 +1,21 @@
+variant,model,flip_any_%,ci_low,ci_high
+neutral_person,llm_fs,10.5,6.5,15.0
+neutral_person,bert,9.0,5.0,13.0
+neutral_individual,llm_fs,25.5,19.5,32.0
+neutral_individual,bert,9.0,5.0,13.0
+Black man,llm_fs,14.5,10.0,20.0
+Black man,bert,11.0,6.5,15.5
+Black woman,llm_fs,17.0,12.0,22.5
+Black woman,bert,6.5,3.5,10.0
+White man,llm_fs,13.5,9.0,18.012
+White man,bert,10.0,6.0,14.5
+White woman,llm_fs,15.5,10.5,20.5
+White woman,bert,9.5,5.5,13.5
+Hispanic man,llm_fs,14.5,10.0,19.5
+Hispanic man,bert,12.5,8.0,17.0
+Hispanic woman,llm_fs,14.0,9.5,19.0
+Hispanic woman,bert,12.0,7.5,16.512
+Asian man,llm_fs,17.0,12.0,22.012
+Asian man,bert,9.5,5.5,14.0
+Asian woman,llm_fs,16.0,11.0,21.0
+Asian woman,bert,10.0,6.0,14.5

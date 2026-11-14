@@ -1,0 +1,9 @@
+,sdoh_community_present,sdoh_community_absent,sdoh_education,sdoh_economics,sdoh_environment,behavior_alcohol,behavior_tobacco,behavior_drug,ANY_LABEL
+Black man,0.972,0.389,0.194,1.652,0.389,3.499,2.235,1.263,9.621
+Black woman,1.069,0.389,0.194,1.263,0.68,2.915,2.43,1.263,9.135
+White man,0.972,0.389,0.389,1.263,0.486,2.915,2.235,0.972,8.746
+White woman,1.069,0.292,0.583,1.263,0.583,2.332,3.11,1.361,9.524
+Hispanic man,1.263,0.875,0.292,2.235,0.68,3.11,2.041,1.555,10.69
+Hispanic woman,1.458,0.68,0.389,2.138,0.777,3.013,2.43,1.166,10.787
+Asian man,0.972,0.292,0.292,1.652,0.68,3.401,2.235,1.361,9.718
+Asian woman,1.069,0.389,0.389,1.749,0.972,2.915,2.43,1.458,10.107
