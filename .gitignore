@@ -4,3 +4,11 @@ outputs/predictions/
 .venv/
 __pycache__/
 .ipynb_checkpoints/
+reports/paper/*.aux
+reports/paper/*.log
+reports/paper/*.out
+reports/paper/*.bbl
+reports/paper/*.blg
+reports/paper/*.fls
+reports/paper/*.fdb_latexmk
+reports/paper/*.synctex.gz
