@@ -1,0 +1,27 @@
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+  font=\footnotesize,
+  node distance=4mm,
+  box/.style={draw=black!60, rounded corners=2pt, align=center, inner sep=3pt, text width=0.86\columnwidth},
+  model/.style={draw=black!60, rounded corners=2pt, align=center, inner sep=3pt, text width=0.25\columnwidth, minimum height=11mm},
+  arr/.style={-{Stealth[length=2mm]}, black!70, semithick}]
+  \node[box] (data) {\textbf{MIMIC-III-Ext-SBDH}: 7{,}025 discharge summaries, 8 SDoH/substance labels};
+  \node[box, below=of data] (prep) {Social History section; exclude 164 extraction failures $\rightarrow$ 6{,}861 notes};
+  \node[box, below=of prep] (split) {Patient-level stratified split: train 4{,}803 / dev 1{,}029 / test 1{,}029};
+  \node[model, below=6mm of split] (bert) {\textbf{Bio\_Clinical-}\\\textbf{BERT}, fine-tuned};
+  \node[model, left=2mm of bert] (rx) {\textbf{Regex rules}\\ tuned on dev, frozen};
+  \node[model, right=2mm of bert] (llm) {\textbf{Qwen2.5-7B}\\ zero-shot, few-shot};
+  \node[box, below=6mm of bert] (eval) {\textbf{Evaluation}: macro-F1 per label, test scored once (RQ1)};
+  \node[box, below=of eval] (fair) {\textbf{Fairness audit} (RQ3): counterfactual prefixes with neutral controls; subgroup macro-F1};
+  \draw[arr] (data) -- (prep);
+  \draw[arr] (prep) -- (split);
+  \foreach \m in {rx, bert, llm} {
+    \draw[arr] (split.south) -- (\m.north);
+    \draw[arr] (\m.south) -- (eval.north);
+  }
+  \draw[arr] (eval) -- (fair);
+\end{tikzpicture}
+\caption{Workflow. Regex and the LLM prompts were developed on dev only; all three model families were scored once on the held-out test split.}
+\label{fig:workflow}
+\end{figure}

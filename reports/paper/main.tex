@@ -3,6 +3,8 @@
 
 \usepackage{booktabs}
 \usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta}
 \graphicspath{{../figures/}}
 
 \begin{document}
@@ -41,6 +43,7 @@ Rules, Fine-Tuned BERT, and Prompted LLMs, with a Counterfactual Fairness Audit}
 % ---------------------------------------------------------------
 \section{Methodology}
 \label{sec:methods}
+\input{workflow}
 
 \subsection{Data}
 % TODO: MIMIC-III-Ext-SBDH (Ahsan subset, corrected labels); 7,025 notes; 8 labels;
