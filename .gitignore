@@ -1,9 +1,16 @@
+# --- Data and outputs that contain note IDs or MIMIC content (never commit) ---
 data/
 outputs/predictions/
+
+# --- Environment and secrets ---
 .env
 .venv/
+
+# --- Python and Jupyter clutter ---
 __pycache__/
 .ipynb_checkpoints/
+
+# --- LaTeX build files (main.pdf itself IS committed) ---
 reports/paper/*.aux
 reports/paper/*.log
 reports/paper/*.out
@@ -12,3 +19,4 @@ reports/paper/*.blg
 reports/paper/*.fls
 reports/paper/*.fdb_latexmk
 reports/paper/*.synctex.gz
+reports/paper/comment.cut
